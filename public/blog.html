@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Across Boards & Borders</title>
+    <style>
+        :root {
+            --primary: #6a1b9a;
+            --secondary: #9c27b0;
+            --accent: #e91e63;
+            --travel-accent: #4CAF50;
+            --reading-accent: #FF9800;
+            --programming-accent: #2196F3;
+            --fitness-accent: #F44336;
+            --learning-accent: #9C27B0;
+            --dark: #121212;
+            --darker: #0a0a0a;
+            --light: #e0e0e0;
+            --lighter: #f5f5f5;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--dark);
+            color: var(--light);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+            position: relative;
+            overflow: hidden;
+            padding: 2rem 0;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, var(--travel-accent), #8BC34A, var(--primary));
+            z-index: -1;
+            opacity: 0.7;
+            filter: blur(50px);
+            animation: gradientShift 8s infinite alternate;
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(to right, var(--light), var(--lighter));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+        }
+
+        .subtitle {
+            font-size: 1.6rem;
+            opacity: 0.9;
+            margin-bottom: 1rem;
+            font-style: italic;
+        }
+
+        .tagline {
+            font-size: 1.2rem;
+            opacity: 0.8;
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        .sections {
+            display: flex;
+            flex-direction: column;
+            gap: 4rem;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -12px;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            border-radius: 3px;
+        }
+
+        .chess-section .section-title::after {
+            background: linear-gradient(to right, var(--primary), var(--accent));
+        }
+
+        .travel-section .section-title::after {
+            background: linear-gradient(to right, var(--travel-accent), #8BC34A);
+        }
+
+        .hobbies-section .section-title::after {
+            background: linear-gradient(to right, var(--accent), var(--secondary));
+        }
+
+        .achievements {
+            display: flex;
+            flex-direction: column;
+            gap: 2.5rem;
+        }
+
+        .achievement-card {
+            background: var(--darker);
+            border-radius: 12px;
+            padding: 2.5rem;
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s, box-shadow 0.3s;
+            position: relative;
+            overflow: hidden;
+            font-size: 1.1rem;
+        }
+
+        .chess-card {
+            border-left: 5px solid var(--accent);
+        }
+
+        .travel-card {
+            border-left: 5px solid var(--travel-accent);
+        }
+
+        .hobby-card {
+            border-left: 5px solid;
+            padding: 2rem;
+        }
+
+        .achievement-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+        }
+
+        .achievement-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.03), transparent);
+            transform: translateX(-100%);
+            transition: transform 0.6s;
+        }
+
+        .achievement-card:hover::before {
+            transform: translateX(100%);
+        }
+
+        .achievement-title {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            color: var(--lighter);
+        }
+
+        .hobby-title {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .achievement-description {
+            line-height: 1.8;
+            opacity: 0.9;
+            margin-bottom: 1.5rem;
+            font-size: 1.2rem;
+        }
+
+        .hobby-description {
+            line-height: 1.8;
+            opacity: 0.9;
+            font-size: 1.2rem;
+            margin-left: 2.8rem;
+        }
+
+        .achievement-place {
+            display: inline-block;
+            padding: 0.7rem 1.3rem;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            border-radius: 25px;
+            font-weight: bold;
+            color: white;
+            font-size: 1.1rem;
+            animation: pulse 2s infinite;
+        }
+
+        .travel-tag {
+            display: inline-block;
+            padding: 0.7rem 1.3rem;
+            background: linear-gradient(to right, var(--travel-accent), #8BC34A);
+            border-radius: 25px;
+            font-weight: bold;
+            color: white;
+            font-size: 1.1rem;
+            animation: pulse-green 2s infinite;
+        }
+
+        .chess-piece {
+            position: absolute;
+            font-size: 6rem;
+            opacity: 0.1;
+            z-index: -1;
+        }
+
+        .travel-icon {
+            position: absolute;
+            font-size: 6rem;
+            opacity: 0.1;
+            z-index: -1;
+            color: var(--travel-accent);
+        }
+
+        .hobby-icon {
+            font-size: 1.8rem;
+        }
+
+        .king {
+            top: -20px;
+            right: 20px;
+        }
+
+        .queen {
+            bottom: -20px;
+            left: 20px;
+        }
+
+        .world {
+            top: -20px;
+            right: 20px;
+        }
+
+        .compass {
+            bottom: -20px;
+            left: 20px;
+        }
+
+        .photo-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .photo-item {
+            position: relative;
+            border-radius: 10px;
+            overflow: hidden;
+            aspect-ratio: 1;
+            transition: transform 0.3s;
+        }
+
+        .photo-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+
+        .photo-item:hover {
+            transform: translateY(-8px);
+        }
+
+        .photo-item:hover img {
+            transform: scale(1.1);
+        }
+
+        .photo-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+            padding: 1.2rem;
+            color: white;
+            font-size: 1.1rem;
+            transform: translateY(100%);
+            transition: transform 0.3s;
+        }
+
+        .photo-item:hover .photo-caption {
+            transform: translateY(0);
+        }
+
+        .hobbies-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 5rem;
+            padding: 3rem;
+            opacity: 0.8;
+            font-size: 1rem;
+        }
+
+        @keyframes gradientShift {
+            0% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+                box-shadow: 0 0 0 0 rgba(106, 27, 154, 0.7);
+            }
+
+            70% {
+                transform: scale(1.05);
+                box-shadow: 0 0 0 10px rgba(106, 27, 154, 0);
+            }
+
+            100% {
+                transform: scale(1);
+                box-shadow: 0 0 0 0 rgba(106, 27, 154, 0);
+            }
+        }
+
+        @keyframes pulse-green {
+            0% {
+                transform: scale(1);
+                box-shadow: 0 0 0 0 rgba(76, 175, 80, 0.7);
+            }
+
+            70% {
+                transform: scale(1.05);
+                box-shadow: 0 0 0 10px rgba(76, 175, 80, 0);
+            }
+
+            100% {
+                transform: scale(1);
+                box-shadow: 0 0 0 0 rgba(76, 175, 80, 0);
+            }
+        }
+
+        /* Animation classes */
+        .hidden {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .visible {
+            opacity: 1;
+            transform: translateY(0);
+            transition: opacity 0.6s, transform 0.6s;
+        }
+
+        .delay-1 {
+            transition-delay: 0.2s;
+        }
+
+        .delay-2 {
+            transition-delay: 0.4s;
+        }
+
+        .delay-3 {
+            transition-delay: 0.6s;
+        }
+
+        .delay-4 {
+            transition-delay: 0.8s;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>Across Boards & Borders</h1>
+            <p class="subtitle">Strategic victories and worldly adventures await.</p>
+            <p class="tagline">Where chess strategies meet travel stories - a journey of calculated moves and
+                spontaneous explorations</p>
+        </header>
+
+        <div class="sections">
+            <!-- Chess Section -->
+            <section class="chess-section">
+                <h2 class="section-title">Chess Achievements</h2>
+                <div class="achievements">
+                    <div class="achievement-card chess-card hidden delay-1">
+                        <div class="chess-piece king">♔</div>
+                        <h2 class="achievement-title">VTU State Level Chess Championship</h2>
+                        <p class="achievement-description">
+                            Secured an impressive position in the prestigious VTU State Level Chess Championship,
+                            competing against top players from universities across the state. The tournament tested
+                            both strategic depth and mental endurance over multiple grueling matches.
+                        </p>
+                        <span class="achievement-place">3rd Place</span>
+                    </div>
+                    <div class="achievement-card chess-card hidden delay-2">
+                        <div class="chess-piece queen">♕</div>
+                        <h2 class="achievement-title">Spring 2025 Indian College Chess Championship</h2>
+                        <p class="achievement-description">
+                            Secured 2nd place.
+                            Our team's performance in the Spring 2025 Indian College Chess
+                            Championship Season.
+                        </p>
+                        <p class="achievement-description">
+                            My team's outstanding performance in the Spring 2025 Indian College Chess Championship has
+                            earned our membership prizes!
+                        </p>
+                        <span class="achievement-place">2nd Place</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Travel Section -->
+            <section class="travel-section">
+                <h2 class="section-title">Travel Adventures</h2>
+                <div class="achievements">
+                    <div class="achievement-card travel-card hidden delay-1">
+                        <div class="travel-icon world">✈</div>
+                        <div class="travel-icon compass">🧭</div>
+                        <h2 class="achievement-title">Exploring the World</h2>
+                        <p class="achievement-description">
+                            Traveling has always been my escape, my inspiration, and my way of discovering new stories.
+                            From
+                            the serene beaches of Goa to the misty hills of Ooty, each destination has left a unique
+                            mark on
+                            my journey. I've felt the spiritual calm in Shirdi, stood in awe before the ancient carvings
+                            of
+                            Ellora, and soaked in the coastal charm of Pondicherry. Each place I visit teaches me
+                            something
+                            new — about the world, its people, and even myself. With every trip, I find more reasons to
+                            keep
+                            exploring, one destination and one memory at a time.
+                        </p>
+                        <p class="achievement-description">
+                            There's something magical about stepping into a new place — the unfamiliar streets, the
+                            local
+                            flavors, the way time seems to slow down as you soak it all in. Whether it's watching the
+                            sunset
+                            over the Arabian Sea in Goa or sipping chai in a quiet Ooty café, I've come to cherish the
+                            small, unplanned moments just as much as the grand sights. Travel, to me, is more than just
+                            ticking destinations off a list — it's about feeling connected to places, even as a
+                            stranger.
+                            It's about letting my curiosity lead the way and collecting stories that stay with me long
+                            after
+                            the journey ends.
+                        </p>
+                        <span class="travel-tag">IncredibleIndia</span>
+                    </div>
+                </div>
+
+                <!-- Photo Grid can be added here if needed -->
+                <!-- <div class="photo-grid">
+                    <div class="photo-item">
+                        <img src="" alt="Travel photo">
+                        <div class="photo-caption">Beautiful destination</div>
+                    </div>
+                </div> -->
+            </section>
+
+            <!-- Hobbies Section -->
+            <section class="hobbies-section">
+                <h2 class="section-title">My Hobbies</h2>
+                <div class="hobbies-grid">
+                    <div class="achievement-card hobby-card hidden delay-1"
+                        style="border-left-color: var(--travel-accent);">
+                        <h3 class="hobby-title"><span class="hobby-icon">✈️</span>Traveling</h3>
+                        <p class="hobby-description">
+                            I love exploring new places and immersing myself in different cultures, which not only
+                            broadens my perspective but also adds excitement to my life.
+                        </p>
+                    </div>
+                    <div class="achievement-card hobby-card hidden delay-2" style="border-left-color: var(--primary);">
+                        <h3 class="hobby-title"><span class="hobby-icon">♟️</span>Chess</h3>
+                        <p class="hobby-description">
+                            A strategic game that sharpens my problem-solving and critical thinking skills, allowing me
+                            to challenge myself and continuously improve.
+                        </p>
+                    </div>
+                    <div class="achievement-card hobby-card hidden delay-3"
+                        style="border-left-color: var(--reading-accent);">
+                        <h3 class="hobby-title"><span class="hobby-icon">📚</span>Reading</h3>
+                        <p class="hobby-description">
+                            Whether it's about economics, psychology, or history, reading helps me expand my knowledge
+                            and understand the world from different viewpoints.
+                        </p>
+                    </div>
+                    <div class="achievement-card hobby-card hidden delay-1"
+                        style="border-left-color: var(--programming-accent);">
+                        <h3 class="hobby-title"><span class="hobby-icon">💻</span>Programming</h3>
+                        <p class="hobby-description">
+                            Coding gives me a creative outlet to build innovative solutions, solve complex problems, and
+                            stay up-to-date with emerging technologies.
+                        </p>
+                    </div>
+                    <div class="achievement-card hobby-card hidden delay-2"
+                        style="border-left-color: var(--fitness-accent);">
+                        <h3 class="hobby-title"><span class="hobby-icon">💪</span>Fitness</h3>
+                        <p class="hobby-description">
+                            Staying active is important to me, as it keeps me physically and mentally sharp, balancing
+                            both my studies and personal well-being.
+                        </p>
+                    </div>
+                    <div class="achievement-card hobby-card hidden delay-3"
+                        style="border-left-color: var(--learning-accent);">
+                        <h3 class="hobby-title"><span class="hobby-icon">🧠</span>Learning</h3>
+                        <p class="hobby-description">
+                            I'm constantly seeking new knowledge, whether it's diving into new tech skills,
+                            understanding new concepts, or personal development.
+                        </p>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <footer>&copy; 2025 Across Boards & Borders | All rights reserved</footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Animate elements when they come into view
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, {
+                threshold: 0.1
+            });
+
+            document.querySelectorAll('.hidden').forEach(el => {
+                observer.observe(el);
+            });
+
+            // Add icon animation on hover
+            const cards = document.querySelectorAll('.achievement-card');
+
+            cards.forEach(card => {
+                const icon = card.querySelector('.chess-piece, .travel-icon, .hobby-icon');
+
+                card.addEventListener('mousemove', (e) => {
+                    const rect = card.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+
+                    if (icon) {
+                        icon.style.transform = `translate(${(x - rect.width / 2) / 15}px, ${(y - rect.height / 2) / 15}px)`;
+                    }
+                });
+
+                card.addEventListener('mouseleave', () => {
+                    if (icon) {
+                        icon.style.transform = 'translate(0, 0)';
+                    }
+                });
+            });
+
+            // Randomize photo grid images on each load
+            const photoItems = document.querySelectorAll('.photo-item img');
+            const travelCategories = [
+                'mountain', 'temple', 'city', 'food', 'beach', 'hiking',
+                'travel', 'landscape', 'adventure', 'culture', 'explore',
+                'journey', 'backpack', 'architecture', 'street'
+            ];
+
+            photoItems.forEach((img, index) => {
+                const randomCategory = travelCategories[Math.floor(Math.random() * travelCategories.length)];
+                img.src = `https://source.unsplash.com/random/600x600/?${randomCategory}&sig=${index}`;
+            });
+        });
+    </script>
+</body>
+
+</html>

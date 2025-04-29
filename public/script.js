@@ -112,7 +112,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
             // Config options - update these based on your environment
             // Line ~105 in your script.js:
-            const API_URL = 'http://localhost:3002/api/contact'; // Update this to match your actual running server port
+            const API_URL = "https://portfolio-new-z8hs.onrender.com/api/contact";
             const FALLBACK_MODE = false; // Set to true to test without backend during development
 
             // Fallback mode for development without backend

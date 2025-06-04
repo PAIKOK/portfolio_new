@@ -226,29 +226,29 @@ document.addEventListener('DOMContentLoaded', function () {
                 })
                 .catch(error => {
                     // Show error message
-                    const errorMessage = document.createElement('div');
-                    errorMessage.classList.add('form__error-message');
+                    // const errorMessage = document.createElement('div');
+                    // errorMessage.classList.add('form__error-message');
 
                     // Provide more specific error messages
-                    let errorText = error.message;
-                    if (error.message === 'Failed to fetch' || error.message.includes('NetworkError')) {
-                        errorText = 'Cannot connect to server. Please check if the server is running.';
-                    } else if (error.message.includes('timeout')) {
-                        errorText = 'Server took too long to respond. Please try again later.';
-                    }
+                    // let errorText = error.message;
+                    // if (error.message === 'Failed to fetch' || error.message.includes('NetworkError')) {
+                    //     errorText = 'Cannot connect to server. Please check if the server is running.';
+                    // } else if (error.message.includes('timeout')) {
+                    //     errorText = 'Server took too long to respond. Please try again later.';
+                    // }
 
-                    errorMessage.innerHTML = `
-                        <ion-icon name="alert-circle-outline"></ion-icon>
-                        <p>${errorText}</p>
-                    `;
+                    // errorMessage.innerHTML = `
+                    //     <ion-icon name="alert-circle-outline"></ion-icon>
+                    //     <p>${errorText}</p>
+                    // `;
 
                     // Insert error message after form
-                    this.insertAdjacentElement('afterend', errorMessage);
+                    // this.insertAdjacentElement('afterend', errorMessage);
 
                     // Remove error message after 5 seconds
-                    setTimeout(() => {
-                        errorMessage.remove();
-                    }, 5000);
+                    // setTimeout(() => {
+                    //     errorMessage.remove();
+                    // }, 5000);
 
                     // Log the full error for debugging
                     console.error('Contact form submission error:', error);
@@ -526,4 +526,4 @@ style.textContent = `
     }
   }
 `;
-document.head.appendChild(style);
+document.head.appendChild(style);form__error-message
